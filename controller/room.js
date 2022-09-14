@@ -40,7 +40,7 @@ const updateRoom = async (req, res, next) => {
         await con.dataBaseConnection.query(checkRoom, [roomId], function (err, result) {
             if (result.length === 0) {
                 res.status(200).send(responseModel(404, "Room not found", []));
-            
+
             }
             let sql = '';
             if (room_image !== '') {
@@ -114,7 +114,14 @@ const getAllRooms = async (req, res, next) => {
             res.status(422).json({ errors: errors.array() });
             return;
         }
-        const checkRoom = "SELECT * FROM em_room WHERE is_delete = 0";
+        console.log(res.body)
+        const home = req.query.home;
+        let checkRoom = "";
+        if (home === "1") {
+            checkRoom = "SELECT * FROM em_room WHERE is_delete = 0 and home = " + home;
+        } else {
+            checkRoom = "SELECT * FROM em_room WHERE is_delete = 0;"
+        }
         await con.dataBaseConnection.query(checkRoom, function (err, data) {
             if (err) {
                 res.status(200).send(responseModel(400, "Error occured", []));

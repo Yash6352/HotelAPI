@@ -13,10 +13,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json({limit: '50mb'}));
-app.use('/images', express.static('images'));
+app.use('/Hotelapi/images', express.static('images'));
 
 db()
 
-app.use('/api', require('./indexRoutes/routes'));
-app.get("/images", express.static(path.join(__dirname, "./images")));
+app.use('/Hotelapi', require('./indexRoutes/routes'));
+app.get("/Hotelapi/images", express.static(path.join(__dirname, "./images")));
 app.listen(5500, console.log(`Server is Running on Port No 5500`),)
